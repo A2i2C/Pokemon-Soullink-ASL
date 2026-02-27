@@ -1,0 +1,16 @@
+[
+  {
+    "route": "Route 101",
+    "p1_mon": "Geckarbor",
+    "p2_mon": "Flemmli",
+    "p2_mon": "karnimani",
+    "status": "alive"
+  },
+  {
+    "route": "Route 102",
+    "p1_mon": "Waumpel",
+    "p2_mon": "Loturzel",
+    "p2_mon": "Forstellka",
+    "status": "dead"
+  }
+]
