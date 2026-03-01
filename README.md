@@ -5,7 +5,7 @@
 
 * **Emulator:** [Emulator - Azahar](https://azahar-emu.org/) 
 * **ROM:** [Pokemon - ROMS](https://r-roms.github.io/Populars/pokemon)
-* **Randomizer:** (Falls genutzt)[Link zum Tool]
+* **Randomizer:** [Randomizer](https://github.com/Ajarmar/universal-pokemon-randomizer-zx/releases)
 
 ---
 ## Die Live-Seite
