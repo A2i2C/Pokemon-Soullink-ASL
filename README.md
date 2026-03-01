@@ -10,11 +10,11 @@
 ---
 ## Die Live-Seite
 
-👉 **[https://a2i2c.github.io/Pokemon-Soullink-ASL/]**
+ **[https://a2i2c.github.io/Pokemon-Soullink-ASL/]**
 
 ---
 
-## 🛠 Anleitung: So aktualisieren wir den Tracker
+## Anleitung: aktualisieren des Trackers
 
 Da wir die Seite statisch über GitHub hosten, müssen wir Änderungen direkt in der `data.json` Datei vornehmen.
 
