@@ -1,55 +1,55 @@
 [
   {
     "route": "Littleroot Town",
-    "Sven": "Nidoran",
-    "Aziz": "Entei",
-    "Luigi": "Charizard",
-    "status": "alive"
-  },
-  {
-    "route": "Route 101",
-    "Sven": "Marill",
-    "Aziz": "Scampingsto",
-    "Luigi": "Panpour",
-    "status": "dead"
-  },
-  {
-    "route": "Route 102",
-    "Sven": "Relicanth",
-    "Aziz": "Rutera",
-    "Luigi": "Throh",
-    "status": "dead"
-  },
-  {
-    "route": "Route 103",
-    "Sven": "Tepig",
-    "Aziz": "Groudon",
-    "Luigi": "Swampert",
-    "status": "dead"
-  },
-  {
-    "route": "Route 104",
-    "Sven": "Articuno",
-    "Aziz": "Vibrava",
-    "Luigi": "Igglypuff",
-    "status": "dead"
-  },
-  {
-    "route": "Petalburg Woods",
-    "Sven": "Blitzle",
-    "Aziz": "Ramoth",
-    "Luigi": "Finneon",
-    "status": "dead"
-  },
-  {
-    "route": "Route 105",
     "Sven": "",
     "Aziz": "",
     "Luigi": "",
     "status": "alive"
   },
   {
-    "route": "Route 106",
+    "route": "Route 101",
+    "Sven": "",
+    "Aziz": "",
+    "Luigi": "",
+    "status": "alive"
+  },
+  {
+    "route": "Route 102",
+    "Sven": "",
+    "Aziz": "",
+    "Luigi": "",
+    "status": "alive"
+  },
+  {
+    "route": "Route 103",
+    "Sven": "",
+    "Aziz": "",
+    "Luigi": "",
+    "status": "alive"
+  },
+  {
+    "route": "Route 104",
+    "Sven": "",
+    "Aziz": "",
+    "Luigi": "",
+    "status": "alive"
+  },
+  {
+    "route": "Petalburg Woods",
+    "Sven": "",
+    "Aziz": "",
+    "Luigi": "",
+    "status": "alive"
+  },
+  {
+    "route": "Route 115",
+    "Sven": "",
+    "Aziz": "",
+    "Luigi": "",
+    "status": "alive"
+  },
+  {
+    "route": "Route 116",
     "Sven": "",
     "Aziz": "",
     "Luigi": "",
