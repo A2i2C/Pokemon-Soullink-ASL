@@ -32,14 +32,14 @@
     "Sven": "Articuno",
     "Aziz": "Vibrava",
     "Luigi": "Igglypuff",
-    "status": "alive"
+    "status": "dead"
   },
   {
     "route": "Petalburg Woods",
     "Sven": "Blitzle",
     "Aziz": "Ramoth",
     "Luigi": "Finneon",
-    "status": "alive"
+    "status": "dead"
   },
   {
     "route": "Route 105",
