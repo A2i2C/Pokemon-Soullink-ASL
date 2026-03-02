@@ -9,9 +9,9 @@
   {
     "route": "Route 101",
     "Sven": "Marill",
-    "Aziz": "",
+    "Aziz": "Scampingsto",
     "Luigi": "Panpour",
-    "status": "alive"
+    "status": "dead"
   },
   {
     "route": "Route 102",
@@ -23,7 +23,7 @@
   {
     "route": "Route 103",
     "Sven": "Tepig",
-    "Aziz": "",
+    "Aziz": "Groudon",
     "Luigi": "Swampert",
     "status": "alive"
   },
