@@ -1,16 +1,247 @@
 [
   {
+    "route": "Littleroot Town",
+    "Sven": "Nidoran",
+    "Aziz": "Flemmli",
+    "Luigi": "Charizard",
+    "status": "alive"
+  },
+  {
     "route": "Route 101",
-    "p1_mon": "Geckarbor",
-    "p2_mon": "Flemmli",
-    "p2_mon": "karnimani",
+    "Sven": "",
+    "Aziz": "",
+    "Luigi": "",
     "status": "alive"
   },
   {
     "route": "Route 102",
-    "p1_mon": "Waumpel",
-    "p2_mon": "Loturzel",
-    "p2_mon": "Forstellka",
-    "status": "dead"
+    "Sven": "",
+    "Aziz": "",
+    "Luigi": "",
+    "status": "alive"
+  },
+  {
+    "route": "Route 103",
+    "Sven": "",
+    "Aziz": "",
+    "Luigi": "",
+    "status": "alive"
+  },
+  {
+    "route": "Route 104",
+    "Sven": "",
+    "Aziz": "",
+    "Luigi": "",
+    "status": "alive"
+  },
+  {
+    "route": "Route 105",
+    "Sven": "",
+    "Aziz": "",
+    "Luigi": "",
+    "status": "alive"
+  },
+  {
+    "route": "Route 106",
+    "Sven": "",
+    "Aziz": "",
+    "Luigi": "",
+    "status": "alive"
+  },
+  {
+    "route": "Route 107",
+    "Sven": "",
+    "Aziz": "",
+    "Luigi": "",
+    "status": "alive"
+  },
+  {
+    "route": "Route 108",
+    "Sven": "",
+    "Aziz": "",
+    "Luigi": "",
+    "status": "alive"
+  },
+  {
+    "route": "Route 109",
+    "Sven": "",
+    "Aziz": "",
+    "Luigi": "",
+    "status": "alive"
+  },
+  {
+    "route": "Route 110",
+    "Sven": "",
+    "Aziz": "",
+    "Luigi": "",
+    "status": "alive"
+  },
+  {
+    "route": "Route 111",
+    "Sven": "",
+    "Aziz": "",
+    "Luigi": "",
+    "status": "alive"
+  },
+  {
+    "route": "Route 112",
+    "Sven": "",
+    "Aziz": "",
+    "Luigi": "",
+    "status": "alive"
+  },
+  {
+    "route": "Route 113",
+    "Sven": "",
+    "Aziz": "",
+    "Luigi": "",
+    "status": "alive"
+  },
+  {
+    "route": "Route 114",
+    "Sven": "",
+    "Aziz": "",
+    "Luigi": "",
+    "status": "alive"
+  },
+  {
+    "route": "Route 115",
+    "Sven": "",
+    "Aziz": "",
+    "Luigi": "",
+    "status": "alive"
+  },
+  {
+    "route": "Route 116",
+    "Sven": "",
+    "Aziz": "",
+    "Luigi": "",
+    "status": "alive"
+  },
+  {
+    "route": "Route 117",
+    "Sven": "",
+    "Aziz": "",
+    "Luigi": "",
+    "status": "alive"
+  },
+  {
+    "route": "Route 118",
+    "Sven": "",
+    "Aziz": "",
+    "Luigi": "",
+    "status": "alive"
+  },
+  {
+    "route": "Route 119",
+    "Sven": "",
+    "Aziz": "",
+    "Luigi": "",
+    "status": "alive"
+  },
+  {
+    "route": "Route 120",
+    "Sven": "",
+    "Aziz": "",
+    "Luigi": "",
+    "status": "alive"
+  },
+  {
+    "route": "Route 121",
+    "Sven": "",
+    "Aziz": "",
+    "Luigi": "",
+    "status": "alive"
+  },
+  {
+    "route": "Route 122",
+    "Sven": "",
+    "Aziz": "",
+    "Luigi": "",
+    "status": "alive"
+  },
+  {
+    "route": "Route 123",
+    "Sven": "",
+    "Aziz": "",
+    "Luigi": "",
+    "status": "alive"
+  },
+  {
+    "route": "Route 124",
+    "Sven": "",
+    "Aziz": "",
+    "Luigi": "",
+    "status": "alive"
+  },
+  {
+    "route": "Route 125",
+    "Sven": "",
+    "Aziz": "",
+    "Luigi": "",
+    "status": "alive"
+  },
+  {
+    "route": "Route 126",
+    "Sven": "",
+    "Aziz": "",
+    "Luigi": "",
+    "status": "alive"
+  },
+  {
+    "route": "Route 127",
+    "Sven": "",
+    "Aziz": "",
+    "Luigi": "",
+    "status": "alive"
+  },
+  {
+    "route": "Route 128",
+    "Sven": "",
+    "Aziz": "",
+    "Luigi": "",
+    "status": "alive"
+  },
+  {
+    "route": "Route 129",
+    "Sven": "",
+    "Aziz": "",
+    "Luigi": "",
+    "status": "alive"
+  },
+  {
+    "route": "Route 130",
+    "Sven": "",
+    "Aziz": "",
+    "Luigi": "",
+    "status": "alive"
+  },
+  {
+    "route": "Route 131",
+    "Sven": "",
+    "Aziz": "",
+    "Luigi": "",
+    "status": "alive"
+  },
+  {
+    "route": "Route 132",
+    "Sven": "",
+    "Aziz": "",
+    "Luigi": "",
+    "status": "alive"
+  },
+  {
+    "route": "Route 133",
+    "Sven": "",
+    "Aziz": "",
+    "Luigi": "",
+    "status": "alive"
+  },
+  {
+    "route": "Route 134",
+    "Sven": "",
+    "Aziz": "",
+    "Luigi": "",
+    "status": "alive"
   }
 ]
