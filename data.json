@@ -2,14 +2,14 @@
   {
     "route": "Littleroot Town",
     "Sven": "Mewtwo",
-    "Aziz": "",
-    "Luigi": "",
+    "Aziz": "Exeggutor",
+    "Luigi": "Gigalith",
     "status": "alive"
   },
   {
     "route": "Route 101",
-    "Sven": "",
-    "Aziz": "",
+    "Sven": "Herdier",
+    "Aziz": "Unknown",
     "Luigi": "",
     "status": "alive"
   },
