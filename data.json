@@ -1,55 +1,55 @@
 [
   {
     "route": "Littleroot Town",
-    "Sven": "Mega-Mewtwo Y",
-    "Aziz": "Exeggutor",
-    "Luigi": "Gigalith",
+    "Sven": "Ampharos",
+    "Aziz": "Eevee",
+    "Luigi": "Mega-Mawile",
     "status": "alive"
   },
   {
     "route": "Route 101",
-    "Sven": "Herdier",
-    "Aziz": "Unknown",
-    "Luigi": "Quatjutsu",
+    "Sven": "Masquerain",
+    "Aziz": "Whiscas",
+    "Luigi": "Escavalier",
+    "status": "dead"
+  },
+  {
+    "route": "Route 103",
+    "Sven": "Dialga",
+    "Aziz": "Florges",
+    "Luigi": "Riolu",
     "status": "alive"
   },
   {
     "route": "Route 102",
-    "Sven": "nidoran",
-    "Aziz": "Dewott",
-    "Luigi": "Tynamo",
-    "status": "alive"
-  },
-  {
-    "route": "Route 103",
-    "Sven": "",
-    "Aziz": "",
-    "Luigi": "",
+    "Sven": "Tyranitar",
+    "Aziz": "Jolteon",
+    "Luigi": "Ledian",
     "status": "alive"
   },
   {
     "route": "Route 104",
-    "Sven": "",
-    "Aziz": "",
-    "Luigi": "",
-    "status": "alive"
+    "Sven": "Staryu",
+    "Aziz": "Druddigon",
+    "Luigi": "Gothorita",
+    "status": "dead"
   },
   {
     "route": "Petalburg Woods",
-    "Sven": "",
-    "Aziz": "",
-    "Luigi": "",
-    "status": "alive"
-  },
-  {
-    "route": "Route 115",
-    "Sven": "",
-    "Aziz": "",
-    "Luigi": "",
-    "status": "alive"
+    "Sven": "Zigzagoon",
+    "Aziz": "Haunter",
+    "Luigi": "Swinub",
+    "status": "dead"
   },
   {
     "route": "Route 116",
+    "Sven": "Burmy",
+    "Aziz": "Shroomish",
+    "Luigi": "Tropius",
+    "status": "dead"
+  },
+  {
+    "route": "Route 115",
     "Sven": "",
     "Aziz": "",
     "Luigi": "",
