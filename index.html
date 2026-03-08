@@ -48,9 +48,8 @@
 
         async function loadRoutes() {
             const { data, error } = await _supabase
-                .from('pokemon')
-                .select('*')
-                .order('created_at', { ascending: false });
+                .from('Pokemon')
+                .select('*');
 
             if (error) { console.error(error); return; }
 
