@@ -46,10 +46,28 @@
 
         // --- FUNKTIONEN ---
 
+        // Der Kanal abonniert alle Änderungen an der Tabelle 'Pokemon'
+        const channel = _supabase
+          .channel('public:Pokemon') // Name des Kanals
+          .on(
+            'postgres_changes', 
+            { 
+              event: '*', // Höre auf Alles: Neue Zeilen, Updates, Löschen
+              schema: 'public', 
+              table: 'Pokemon' 
+            }, 
+            (payload) => {
+              console.log('Echtzeit-Update empfangen!', payload);
+              loadRoutes(); // Ruft deine Funktion von oben auf, um die Liste neu zu zeichnen
+            }
+          )
+          .subscribe();
+
         async function loadRoutes() {
             const { data, error } = await _supabase
                 .from('Pokemon')
-                .select('*');
+                .select('*')
+                .order('id', { ascending: true }); // Sortiert nach der ID (1, 2, 3...)
 
             if (error) { console.error(error); return; }
 
@@ -89,6 +107,8 @@
                 loadRoutes();
             }
         }
+
+        
 
         async function updatePoke(id, player) {
             const newPoke = prompt(`Welches Pokémon hat ${player} gefangen?`);
