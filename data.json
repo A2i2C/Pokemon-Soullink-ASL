@@ -56,15 +56,15 @@
     "status": "dead"
   },
   {
-    "route": "Route 107",
-    "Sven": "",
-    "Aziz": "",
+    "route": "Dewford Town",
+    "Sven": "Cacnea",
+    "Aziz": "Luxtra",
     "Luigi": "",
     "status": "alive"
   },
   {
-    "route": "Route 108",
-    "Sven": "",
+    "route": "Granite Cave",
+    "Sven": "Vanillish",
     "Aziz": "",
     "Luigi": "",
     "status": "alive"
