@@ -2,77 +2,127 @@
 <html lang="de">
 <head>
     <meta charset="UTF-8">
-    <title>SoulLink Tracker</title>
+    <title>SoulLink Tracker V2</title>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <style>
-        body { font-family: 'Segoe UI', sans-serif; background: #1a1a1a; color: white; text-align: center; padding: 20px; }
-        .container { max-width: 600px; margin: auto; }
-        .form-box { background: #2a2a2a; padding: 20px; border-radius: 8px; margin-bottom: 20px; border: 1px solid #444; }
-        input { padding: 8px; margin: 5px; border-radius: 4px; border: none; width: 80%; background: #444; color: white; }
-        button { padding: 10px 20px; background: #4CAF50; color: white; border: none; border-radius: 4px; cursor: pointer; margin-top: 10px; }
-        .pair { display: flex; justify-content: space-between; align-items: center; padding: 15px; margin: 10px; border-radius: 8px; background: #333; border-left: 5px solid #4CAF50; text-align: left; }
-        .dead { border-left-color: #f44336; opacity: 0.5; text-decoration: line-through; }
-        .route-name { font-weight: bold; color: #aaa; font-size: 0.8em; display: block; }
-        .death-btn { background: #f44336; padding: 5px 10px; font-size: 0.7em; }
+        body { font-family: sans-serif; background: #1a1a1a; color: white; text-align: center; }
+        .container { max-width: 900px; margin: auto; padding: 20px; }
+        .route-grid { 
+            display: grid; 
+            grid-template-columns: 1fr 1fr 1fr 1fr 1fr; /* 5 Spalten */
+            gap: 10px; background: #2a2a2a; padding: 15px; margin-bottom: 10px; border-radius: 8px;
+            align-items: center; border-left: 5px solid #4CAF50;
+        }
+        .dead { border-left-color: #f44336; opacity: 0.6; }
+        input { padding: 8px; border-radius: 4px; border: 1px solid #444; background: #333; color: white; }
+        button { cursor: pointer; padding: 8px; border: none; border-radius: 4px; }
+        .btn-add { background: #4CAF50; color: white; margin-bottom: 20px; padding: 10px 20px; }
+        .btn-update { background: #2196F3; color: white; font-size: 0.8em; }
+        .btn-death { background: #f44336; color: white; grid-column: span 5; margin-top: 5px; }
+        .header-row { font-weight: bold; color: #aaa; margin-bottom: 10px; }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>⚔️ SoulLink Tracker ⚔️</h1>
-        <div class="form-box">
-            <input type="text" id="routeInput" placeholder="Route"><br>
-            <input type="text" id="svenInput" placeholder="Svens Pokémon"><br>
-            <input type="text" id="azizInput" placeholder="Aziz' Pokémon"><br>
-            <input type="text" id="luigiInput" placeholder="Luigis Pokémon"><br>
-            <button onclick="addPokemon()">Hinzufügen</button>
+        <h1>⚔️ SoulLink: Route Tracker ⚔️</h1>
+
+        <div style="margin-bottom: 30px;">
+            <input type="text" id="newRouteName" placeholder="Routen Name (z.B. Route 101)">
+            <button class="btn-add" id="addRouteBtn">Neue Route hinzufügen</button>
         </div>
-        <div id="tracker">Lade Daten...</div>
+
+        <div class="route-grid header-row" style="background: transparent; border: none;">
+            <div>Route</div><div>Sven</div><div>Aziz</div><div>Luigi</div><div>Aktion</div>
+        </div>
+
+        <div id="trackerList">Lade Routen...</div>
     </div>
 
     <script>
-        // HIER DEINE DATEN EINTRAGEN
-        const SUPABASE_URL = 'https://sbteykcuvbjlcghbtcqt.supabase.co';
-        const SUPABASE_KEY = 'sb_publishable_pYVsZk-cxgbJJPVvmi7Szg_vgQfNNHj';
-        const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+        // --- KONFIGURATION ---
+        const SUPABASE_URL = 'DEINE_URL';
+        const SUPABASE_KEY = 'DEIN_KEY';
+        const _supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
-        async function loadData() {
-            const { data, error } = await supabase.from('pokemon').select('*').order('created_at', { ascending: false });
-            if (error) return console.error(error);
-            const container = document.getElementById('tracker');
-            container.innerHTML = '';
-            data.forEach(pair => {
+        // --- FUNKTIONEN ---
+
+        async function loadRoutes() {
+            const { data, error } = await _supabase
+                .from('pokemon')
+                .select('*')
+                .order('created_at', { ascending: false });
+
+            if (error) { console.error(error); return; }
+
+            const list = document.getElementById('trackerList');
+            list.innerHTML = '';
+
+            data.forEach(row => {
                 const div = document.createElement('div');
-                div.className = `pair ${pair.status === 'dead' ? 'dead' : ''}`;
+                div.className = `route-grid ${row.status === 'dead' ? 'dead' : ''}`;
+                
                 div.innerHTML = `
+                    <div style="font-weight:bold">${row.route}</div>
+                    <div>${row.sven || '---'} <br> <button class="btn-update" onclick="updatePoke('${row.id}', 'sven')">✍️</button></div>
+                    <div>${row.aziz || '---'} <br> <button class="btn-update" onclick="updatePoke('${row.id}', 'aziz')">✍️</button></div>
+                    <div>${row.luigi || '---'} <br> <button class="btn-update" onclick="updatePoke('${row.id}', 'luigi')">✍️</button></div>
                     <div>
-                        <span class="route-name">${pair.route}</span>
-                        <strong>${pair.sven}</strong> & <strong>${pair.aziz}</strong> & <strong>${pair.luigi}</strong>
+                        <button class="btn-death" onclick="toggleStatus('${row.id}', '${row.status}')">
+                            ${row.status === 'alive' ? 'MARK DEAD 💀' : 'REVIVE 😇'}
+                        </button>
                     </div>
-                    ${pair.status === 'alive' ? `<button class="death-btn" onclick="markAsDead(${pair.id})">TOT</button>` : ''}
                 `;
-                container.appendChild(div);
+                list.appendChild(div);
             });
         }
 
-        async function addPokemon() {
-            const entry = {
-                route: document.getElementById('routeInput').value,
-                sven: document.getElementById('svenInput').value,
-                aziz: document.getElementById('azizInput').value,
-                luigi: document.getElementById('luigiInput').value,
-                status: 'alive'
-            };
-            await supabase.from('pokemon').insert([entry]);
-            location.reload();
-        }
+        async function createRoute() {
+            const name = document.getElementById('newRouteName').value;
+            if(!name) return alert("Namen eingeben!");
 
-        async function markAsDead(id) {
-            if(confirm("Sicher? 💀")) {
-                await supabase.from('pokemon').update({ status: 'dead' }).eq('id', id);
-                location.reload();
+            const { error } = await _supabase
+                .from('pokemon')
+                .insert([{ route: name, sven: '---', aziz: '---', luigi: '---', status: 'alive' }]);
+
+            if (error) alert(error.message);
+            else {
+                document.getElementById('newRouteName').value = '';
+                loadRoutes();
             }
         }
-        loadData();
+
+        async function updatePoke(id, player) {
+            const newPoke = prompt(`Welches Pokémon hat ${player} gefangen?`);
+            if (newPoke === null) return;
+
+            const updateData = {};
+            updateData[player] = newPoke;
+
+            const { error } = await _supabase
+                .from('pokemon')
+                .update(updateData)
+                .eq('id', id);
+
+            if (error) alert(error.message);
+            else loadRoutes();
+        }
+
+        async function toggleStatus(id, currentStatus) {
+            const newStatus = currentStatus === 'alive' ? 'dead' : 'alive';
+            const { error } = await _supabase
+                .from('pokemon')
+                .update({ status: newStatus })
+                .eq('id', id);
+
+            if (error) alert(error.message);
+            else loadRoutes();
+        }
+
+        // --- EVENT LISTENER ---
+        document.getElementById('addRouteBtn').addEventListener('click', createRoute);
+
+        // Start
+        loadRoutes();
     </script>
 </body>
 </html>
