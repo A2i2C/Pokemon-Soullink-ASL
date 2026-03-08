@@ -59,21 +59,21 @@
     "route": "Dewford Town",
     "Sven": "Cacnea",
     "Aziz": "Luxtra",
-    "Luigi": "Cleffa",
+    "Luigi": "Dragonir",
     "status": "dead"
   },
   {
     "route": "Granite Cave",
     "Sven": "Vanillish",
     "Aziz": "Mawile",
-    "Luigi": "",
+    "Luigi": "Mienshao",
     "status": "alive"
   },
   {
-    "route": "Route 109",
-    "Sven": "",
-    "Aziz": "",
-    "Luigi": "",
+    "route": "Route 106",
+    "Sven": "Mega Gallade",
+    "Aziz": "Omastar",
+    "Luigi": "Cleffa",
     "status": "alive"
   },
   {
