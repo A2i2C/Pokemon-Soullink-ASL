@@ -80,7 +80,7 @@
             if(!name) return alert("Namen eingeben!");
 
             const { error } = await _supabase
-                .from('pokemon')
+                .from('Pokemon')
                 .insert([{ route: name, sven: '---', aziz: '---', luigi: '---', status: 'alive' }]);
 
             if (error) alert(error.message);
@@ -98,7 +98,7 @@
             updateData[player] = newPoke;
 
             const { error } = await _supabase
-                .from('pokemon')
+                .from('Pokemon')
                 .update(updateData)
                 .eq('id', id);
 
@@ -109,7 +109,7 @@
         async function toggleStatus(id, currentStatus) {
             const newStatus = currentStatus === 'alive' ? 'dead' : 'alive';
             const { error } = await _supabase
-                .from('pokemon')
+                .from('Pokemon')
                 .update({ status: newStatus })
                 .eq('id', id);
 
