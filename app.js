@@ -2,6 +2,7 @@
 const SUPABASE_URL = "https://sbteykcuvbjlcghbtcqt.supabase.co";
 const SUPABASE_KEY = "sb_publishable_pYVsZk-cxgbJJPVvmi7Szg_vgQfNNHj";
 const _supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+let showDead = false; // Steuert die Sichtbarkeit von "toten" Routen
 
 // --- FUNKTIONEN ---
 
@@ -51,6 +52,7 @@ async function loadRoutes() {
                         </button>
                     </div>
                 `;
+    if (row.status === "dead" && !showDead) return;
     list.appendChild(div);
   });
 }
@@ -68,7 +70,6 @@ async function createRoute() {
   if (error) alert(error.message);
   else {
     document.getElementById("newRouteName").value = "";
-    loadRoutes();
   }
 }
 
@@ -85,7 +86,6 @@ async function updatePoke(id, player) {
     .eq("id", id);
 
   if (error) alert(error.message);
-  else loadRoutes();
 }
 
 async function toggleStatus(id, currentStatus) {
@@ -96,11 +96,16 @@ async function toggleStatus(id, currentStatus) {
     .eq("id", id);
 
   if (error) alert(error.message);
-  else loadRoutes();
 }
+
+  
 
 // --- EVENT LISTENER ---
 document.getElementById("addRouteBtn").addEventListener("click", createRoute);
+document.getElementById("toggleDead").addEventListener("change", function() {
+  showDead = this.checked;
+  loadRoutes();
+});
 
 // Start
 loadRoutes();
