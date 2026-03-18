@@ -4,23 +4,8 @@
     <meta charset="UTF-8">
     <title>SoulLink Tracker V2</title>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <style>
-        body { font-family: sans-serif; background: #1a1a1a; color: white; text-align: center; }
-        .container { max-width: 900px; margin: auto; padding: 20px; }
-        .route-grid { 
-            display: grid; 
-            grid-template-columns: 1fr 1fr 1fr 1fr 1fr; /* 5 Spalten */
-            gap: 10px; background: #2a2a2a; padding: 15px; margin-bottom: 10px; border-radius: 8px;
-            align-items: center; border-left: 5px solid #4CAF50;
-        }
-        .dead { border-left-color: #f44336; opacity: 0.6; }
-        input { padding: 8px; border-radius: 4px; border: 1px solid #444; background: #333; color: white; }
-        button { cursor: pointer; padding: 8px; border: none; border-radius: 4px; }
-        .btn-add { background: #4CAF50; color: white; margin-bottom: 20px; padding: 10px 20px; }
-        .btn-update { background: #2196F3; color: white; font-size: 0.8em; }
-        .btn-death { background: #f44336; color: white; grid-column: span 5; margin-top: 5px; }
-        .header-row { font-weight: bold; color: #aaa; margin-bottom: 10px; }
-    </style>
+    <link rel="stylesheet" href="styles.css">
+
 </head>
 <body>
     <div class="container">
@@ -38,110 +23,6 @@
         <div id="trackerList">Lade Routen...</div>
     </div>
 
-    <script>
-        // --- KONFIGURATION ---
-        const SUPABASE_URL = 'https://sbteykcuvbjlcghbtcqt.supabase.co';
-        const SUPABASE_KEY = 'sb_publishable_pYVsZk-cxgbJJPVvmi7Szg_vgQfNNHj';
-        const _supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
-
-        // --- FUNKTIONEN ---
-
-        // Der Kanal abonniert alle Änderungen an der Tabelle 'Pokemon'
-        const channel = _supabase
-          .channel('public:Pokemon') // Name des Kanals
-          .on(
-            'postgres_changes', 
-            { 
-              event: '*', // Höre auf Alles: Neue Zeilen, Updates, Löschen
-              schema: 'public', 
-              table: 'Pokemon' 
-            }, 
-            (payload) => {
-              console.log('Echtzeit-Update empfangen!', payload);
-              loadRoutes(); // Ruft deine Funktion von oben auf, um die Liste neu zu zeichnen
-            }
-          )
-          .subscribe();
-
-        async function loadRoutes() {
-            const { data, error } = await _supabase
-                .from('Pokemon')
-                .select('*')
-                .order('id', { ascending: true }); // Sortiert nach der ID (1, 2, 3...)
-
-            if (error) { console.error(error); return; }
-
-            const list = document.getElementById('trackerList');
-            list.innerHTML = '';
-
-            data.forEach(row => {
-                const div = document.createElement('div');
-                div.className = `route-grid ${row.status === 'dead' ? 'dead' : ''}`;
-                
-                div.innerHTML = `
-                    <div style="font-weight:bold">${row.route}</div>
-                    <div>${row.sven || '---'} <br> <button class="btn-update" onclick="updatePoke('${row.id}', 'sven')">✍️</button></div>
-                    <div>${row.aziz || '---'} <br> <button class="btn-update" onclick="updatePoke('${row.id}', 'aziz')">✍️</button></div>
-                    <div>${row.luigi || '---'} <br> <button class="btn-update" onclick="updatePoke('${row.id}', 'luigi')">✍️</button></div>
-                    <div>
-                        <button class="btn-death" onclick="toggleStatus('${row.id}', '${row.status}')">
-                            ${row.status === 'alive' ? 'MARK DEAD 💀' : 'REVIVE 😇'}
-                        </button>
-                    </div>
-                `;
-                list.appendChild(div);
-            });
-        }
-
-        async function createRoute() {
-            const name = document.getElementById('newRouteName').value;
-            if(!name) return alert("Namen eingeben!");
-
-            const { error } = await _supabase
-                .from('Pokemon')
-                .insert([{ route: name, sven: '---', aziz: '---', luigi: '---', status: 'alive' }]);
-
-            if (error) alert(error.message);
-            else {
-                document.getElementById('newRouteName').value = '';
-                loadRoutes();
-            }
-        }
-
-        
-
-        async function updatePoke(id, player) {
-            const newPoke = prompt(`Welches Pokémon hat ${player} gefangen?`);
-            if (newPoke === null) return;
-
-            const updateData = {};
-            updateData[player] = newPoke;
-
-            const { error } = await _supabase
-                .from('Pokemon')
-                .update(updateData)
-                .eq('id', id);
-
-            if (error) alert(error.message);
-            else loadRoutes();
-        }
-
-        async function toggleStatus(id, currentStatus) {
-            const newStatus = currentStatus === 'alive' ? 'dead' : 'alive';
-            const { error } = await _supabase
-                .from('Pokemon')
-                .update({ status: newStatus })
-                .eq('id', id);
-
-            if (error) alert(error.message);
-            else loadRoutes();
-        }
-
-        // --- EVENT LISTENER ---
-        document.getElementById('addRouteBtn').addEventListener('click', createRoute);
-
-        // Start
-        loadRoutes();
-    </script>
+    <script src="app.js"></script>
 </body>
 </html>

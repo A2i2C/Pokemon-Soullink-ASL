@@ -1,0 +1,61 @@
+body {
+  font-family: sans-serif;
+  background: #1a1a1a;
+  color: white;
+  text-align: center;
+}
+.container {
+  max-width: 900px;
+  margin: auto;
+  padding: 20px;
+}
+.route-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr; /* 5 Spalten */
+  gap: 10px;
+  background: #2a2a2a;
+  padding: 15px;
+  margin-bottom: 10px;
+  border-radius: 8px;
+  align-items: center;
+  border-left: 5px solid #4caf50;
+}
+.dead {
+  border-left-color: #f44336;
+  opacity: 0.6;
+}
+input {
+  padding: 8px;
+  border-radius: 4px;
+  border: 1px solid #444;
+  background: #333;
+  color: white;
+}
+button {
+  cursor: pointer;
+  padding: 8px;
+  border: none;
+  border-radius: 4px;
+}
+.btn-add {
+  background: #4caf50;
+  color: white;
+  margin-bottom: 20px;
+  padding: 10px 20px;
+}
+.btn-update {
+  background: #2196f3;
+  color: white;
+  font-size: 0.8em;
+}
+.btn-death {
+  background: #f44336;
+  color: white;
+  grid-column: span 5;
+  margin-top: 5px;
+}
+.header-row {
+  font-weight: bold;
+  color: #aaa;
+  margin-bottom: 10px;
+}
