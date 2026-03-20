@@ -1,31 +1,58 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="de">
+
 <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-8" />
     <title>SoulLink Tracker V2</title>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <link rel="stylesheet" href="styles.css">
-
+    <link rel="stylesheet" href="styles.css" />
 </head>
+
 <body>
     <div class="container">
         <h1>⚔️ SoulLink: Route Tracker ⚔️</h1>
 
-        <div style="margin-bottom: 30px;">
-            <input type="text" id="newRouteName" placeholder="Routen Name (z.B. Route 101)">
+        <div style="margin-bottom: 30px">
+            <input type="text" id="newRouteName" placeholder="Routen Name (z.B. Route 101)" />
             <button class="btn-add" id="addRouteBtn">Neue Route hinzufügen</button>
         </div>
 
-        <div style="margin-bottom: 20px;">
-            <label><input type="checkbox" id="toggleDead"> Tote Pokemon anzeigen</label>
+        <div style="margin-bottom: 20px">
+            <label><input type="checkbox" id="toggleDead" /> Tote Pokemon
+                anzeigen</label>
         </div>
-        <div class="route-grid header-row" style="background: transparent; border: none;">
-            <div>Route</div><div>Sven</div><div>Aziz</div><div>Luigi</div><div>Aktion</div>
+
+        <div class="route-grid header-row" style="background: transparent; border: none">
+            <div>Route</div>
+            <div>Sven</div>
+            <div>Aziz</div>
+            <div>Luigi</div>
+            <div>Aktion</div>
         </div>
+
+        <template id="routeTemplate" class="route-Information">
+            <div class="route-wrapper">
+                <div class="route-grid">
+                    <div class="route-name" style="font-weight: bold"></div>
+                    <div class="players-container"></div>
+                    <div class="actions">
+                        <button class="btn-death">MARK DEAD 💀</button>
+                    </div>
+                </div>
+                <button class="btn-delete">🗑️</button>
+            </div>
+        </template>
+
+        <template id="playerTemplate">
+            <div class="player-slot"> <span class="poke-name"></span><br />
+                <button class="btn-update">✍️</button>
+            </div>
+        </template>
 
         <div id="trackerList">Lade Routen...</div>
     </div>
 
     <script src="app.js"></script>
 </body>
+
 </html>

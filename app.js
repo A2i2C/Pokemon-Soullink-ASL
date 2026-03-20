@@ -3,6 +3,7 @@ const SUPABASE_URL = "https://sbteykcuvbjlcghbtcqt.supabase.co";
 const SUPABASE_KEY = "sb_publishable_pYVsZk-cxgbJJPVvmi7Szg_vgQfNNHj";
 const _supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 let showDead = false; // Steuert die Sichtbarkeit von "toten" Routen
+const list = document.getElementById("trackerList");
 
 // --- FUNKTIONEN ---
 
@@ -12,7 +13,7 @@ const channel = _supabase
   .on(
     "postgres_changes",
     {
-      event: "*", // Höre auf Alles: Neue Zeilen, Updates, Löschen
+      event: "*",
       schema: "public",
       table: "Pokemon",
     },
@@ -23,37 +24,61 @@ const channel = _supabase
   )
   .subscribe();
 
+    list.addEventListener("click", function (e) {
+    const routeId = e.target.closest(".route-wrapper").dataset.id; 
+    if (e.target.classList.contains("btn-update")) {
+      const player = e.target.dataset.player;
+      updatePoke(routeId, player);
+    }
+
+    if (e.target.classList.contains("btn-death")) {
+      const currentStatus = e.target.textContent.includes("REVIVE") ? "dead" : "alive"; // Wenn der Button "revive" anzeigt, ist die Route aktuell "dead" deswegen setzen wir den Status auf "alive" und umgekehrt
+      toggleStatus(routeId, currentStatus);
+    }
+  });
+
 async function loadRoutes() {
   const { data, error } = await _supabase
     .from("Pokemon")
     .select("*")
     .order("id", { ascending: true }); // Sortiert nach der ID (1, 2, 3...)
 
+   list.innerHTML = "";
+
+
   if (error) {
     console.error(error);
     return;
   }
 
-  const list = document.getElementById("trackerList");
-  list.innerHTML = "";
+  const playerList = ["sven", "aziz", "luigi"];
 
   data.forEach((row) => {
-    const div = document.createElement("div");
-    div.className = `route-grid ${row.status === "dead" ? "dead" : ""}`;
+    const routeTemplate = document.getElementById("routeTemplate");
+    const routeTemplateClone = routeTemplate.content.cloneNode(true);
 
-    div.innerHTML = `
-                    <div style="font-weight:bold">${row.route}</div>
-                    <div>${row.sven || "---"} <br> <button class="btn-update" onclick="updatePoke('${row.id}', 'sven')">✍️</button></div>
-                    <div>${row.aziz || "---"} <br> <button class="btn-update" onclick="updatePoke('${row.id}', 'aziz')">✍️</button></div>
-                    <div>${row.luigi || "---"} <br> <button class="btn-update" onclick="updatePoke('${row.id}', 'luigi')">✍️</button></div>
-                    <div>
-                        <button class="btn-death" onclick="toggleStatus('${row.id}', '${row.status}')">
-                            ${row.status === "alive" ? "MARK DEAD 💀" : "REVIVE 😇"}
-                        </button>
-                    </div>
-                `;
-    if (row.status === "dead" && !showDead) return;
-    list.appendChild(div);
+    const route = routeTemplateClone.querySelector(".route-wrapper");
+    route.dataset.id = row.id;
+    routeTemplateClone.querySelector(".route-name").textContent = row.route;
+    if(row.status === "dead") route.classList.add("dead");
+
+    playerList.forEach((player) => {
+    const playerTemplate = document.getElementById("playerTemplate");
+    const playerTemplateClone = playerTemplate.content.cloneNode(true);
+
+    const playersContainer = routeTemplateClone.querySelector(".players-container");
+
+    playerTemplateClone.querySelector(".poke-name").textContent = row[player] || "---";
+
+    const btnPokemonUpdate = playerTemplateClone.querySelector(".btn-update");
+    btnPokemonUpdate.dataset.player = player;
+
+    playersContainer.appendChild(playerTemplateClone);
+    });
+
+    const deathBtn = routeTemplateClone.querySelector(".btn-death");
+    deathBtn.textContent = row.status === "alive" ? "MARK DEAD 💀" : "REVIVE 😇";
+    list.appendChild(routeTemplateClone);
   });
 }
 
@@ -98,11 +123,11 @@ async function toggleStatus(id, currentStatus) {
   if (error) alert(error.message);
 }
 
-  
+
 
 // --- EVENT LISTENER ---
 document.getElementById("addRouteBtn").addEventListener("click", createRoute);
-document.getElementById("toggleDead").addEventListener("change", function() {
+document.getElementById("toggleDead").addEventListener("click", function() {
   showDead = this.checked;
   loadRoutes();
 });
