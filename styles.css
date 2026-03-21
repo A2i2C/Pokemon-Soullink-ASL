@@ -9,20 +9,34 @@ body {
   margin: auto;
   padding: 20px;
 }
+.route-wrapper {
+  display: flex;
+  align-items: center; /* Vertikal zentrieren */
+  margin-bottom: 10px; /* Abstand zur nächsten Route */
+}
+
 .route-grid {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr; /* 5 Spalten */
-  gap: 10px;
   background: #2a2a2a;
   padding: 15px;
   margin-bottom: 10px;
   border-radius: 8px;
   align-items: center;
   border-left: 5px solid #4caf50;
+  flex: 1; /* Das Grid nimmt den gesamten verfügbaren Platz links ein */
+}
+
+.deleteRouteBtn {
+  cursor: pointer;
+  font-size: 1.5rem; /* Etwas größer */
+  padding: 10px;
+  transition: transform 0.2s ease;
+  user-select: none; /* Verhindert das Markieren des Emojis */
 }
 
 .players-container {
-  display: contents; 
+  display: contents;
 }
 .dead {
   border-left-color: #f44336;
@@ -59,6 +73,7 @@ button {
   margin-top: 5px;
 }
 .header-row {
+  margin-left: -15px; /* Gleicher Wert wie das Padding der Route-Grid für eine saubere Ausrichtung */
   font-weight: bold;
   color: #aaa;
   margin-bottom: 10px;

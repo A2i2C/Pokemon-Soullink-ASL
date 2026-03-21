@@ -44,7 +44,7 @@ async function loadRoutes() {
     const routeTemplate = document.getElementById("routeTemplate");
     const routeTemplateClone = routeTemplate.content.cloneNode(true);
 
-    const route = routeTemplateClone.querySelector(".route-grid");
+    const route = routeTemplateClone.querySelector(".route-wrapper");
     route.dataset.id = row.id;
     routeTemplateClone.querySelector(".route-name").textContent = row.route;
     if (row.status === "dead") route.classList.add("dead");
@@ -112,8 +112,18 @@ async function toggleStatus(id, currentStatus) {
   if (error) alert(error.message);
 }
 
+async function deleteRoute(id) {
+  if (!confirm("Willst du diese Route wirklich löschen?")) return;
+
+  await _supabase
+    .from("Pokemon")
+    .delete()
+    .eq("id", id);
+}
+
 // --- EVENT LISTENER ---
 mainScope.addEventListener("click", function (e) {
+  const wrapper = e.target.closest(".route-wrapper");
   // Globale Funktionen
 
   if (e.target.id === "toggleDead") {
@@ -127,9 +137,12 @@ mainScope.addEventListener("click", function (e) {
   }
 
   // Routen-Logik
-  const wrapper = e.target.closest(".route-grid");
-
   const routeId = wrapper.dataset.id;
+console.log("Klick auf Route mit ID:", routeId);
+    if (e.target.id === "deleteRouteBtn") {
+      console.log("Lösche Route mit ID:", routeId);
+    deleteRoute(routeId);
+  }
 
   if (e.target.classList.contains("btn-update")) {
     const player = e.target.dataset.player;
