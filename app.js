@@ -8,23 +8,6 @@ let showDead = false; // Steuert die Sichtbarkeit von "toten" Routen
 
 // --- FUNKTIONEN ---
 
-// Der Kanal abonniert alle Änderungen an der Tabelle 'Pokemon'
-const channel = _supabase
-  .channel("public:Pokemon") // Name des Kanals
-  .on(
-    "postgres_changes",
-    {
-      event: "*",
-      schema: "public",
-      table: "Pokemon",
-    },
-    (payload) => {
-      console.log("Echtzeit-Update empfangen!", payload);
-      loadRoutes(); // Ruft deine Funktion von oben auf, um die Liste neu zu zeichnen
-    },
-  )
-  .subscribe();
-
 async function loadRoutes() {
   trackerList.innerHTML = ""; // Leert die aktuelle Liste, bevor neue Daten geladen werden
 
@@ -156,6 +139,39 @@ console.log("Klick auf Route mit ID:", routeId);
     toggleStatus(routeId, currentStatus);
   }
 });
+
+// --- ECHTZEIT-UPDATE ---
+const channel = _supabase
+  .channel("public:Pokemon") // Name des Kanals
+  .on(
+    "postgres_changes",
+    {
+      event: "*",
+      schema: "public",
+      table: "Pokemon",
+    },
+    (payload) => {
+      console.log("Echtzeit-Update empfangen!", payload);
+      loadRoutes(); // Ruft deine Funktion von oben auf, um die Liste neu zu zeichnen
+    },
+  )
+  .subscribe();
+/*
+  async function nuclearOption() {
+    if (!confirm("Bist du sicher? Alle Routen werden gelöscht und die ID-Zählung zurückgesetzt!")) return;
+    const { error } = await _supabase.from("Pokemon").delete().neq('id', 0); // Löscht alle Routen
+    if (error) {
+        console.error("Fehler bei der Löschung", error);
+        alert("Fehler: " + error.message);
+    } else {
+        console.log("Tabelle erfolgreich geleert.");
+    }
+  }
+
+  document.getElementById("nuclearOption")
+    .addEventListener("click", nuclearOption);
+*/
+
 
 // Start
 loadRoutes();
