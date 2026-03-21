@@ -127,7 +127,7 @@ mainScope.addEventListener("click", function (e) {
   }
 
   // Routen-Logik
-  const wrapper = e.target.closest(".route-wrapper");
+  const wrapper = e.target.closest(".route-grid");
 
   const routeId = wrapper.dataset.id;
 
