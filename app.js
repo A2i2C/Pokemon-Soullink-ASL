@@ -40,6 +40,9 @@ async function loadRoutes() {
 
       playerTemplateClone.querySelector(".poke-name").textContent = row[player] || "---";
 
+      const starBtn = playerTemplateClone.querySelector(".star-btn");
+      starBtn.textContent = "☆";
+
       const btnPokemonUpdate = playerTemplateClone.querySelector(".btn-update");
       btnPokemonUpdate.dataset.player = player;
 
@@ -108,6 +111,25 @@ async function deleteRoute(id) {
 mainScope.addEventListener("click", function (e) {
   const wrapper = e.target.closest(".route-wrapper");
   // Globale Funktionen
+
+  // ⭐ STAR CLICK
+  if (e.target.classList.contains("star-btn")) {
+    const star = e.target;
+    const playerSlot = star.closest(".player-slot");
+    const pokeName = playerSlot.querySelector(".poke-name");
+
+    const isFav = star.classList.toggle("favorited");
+
+    if (isFav) {
+      star.textContent = "⭐";
+      pokeName.classList.add("favorited");
+    } else {
+      star.textContent = "☆";
+      pokeName.classList.remove("favorited");
+    }
+
+    return;
+  }
 
   if (e.target.id === "toggleDead") {
     showDead = e.target.checked;
