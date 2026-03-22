@@ -40,9 +40,6 @@ async function loadRoutes() {
 
       playerTemplateClone.querySelector(".poke-name").textContent = row[player] || "---";
 
-      const starBtn = playerTemplateClone.querySelector(".star-btn");
-      starBtn.textContent = "☆";
-
       const btnPokemonUpdate = playerTemplateClone.querySelector(".btn-update");
       btnPokemonUpdate.dataset.player = player;
 
@@ -58,8 +55,8 @@ async function loadRoutes() {
 }
 
 async function createRoute() {
-  const name = document.getElementById("newRouteName").value;
-  if (!name) return alert("Namen eingeben!");
+  const name = document.getElementById("routeName").value;
+  if (!name) return alert("Der Routenname darf nicht Leer sein!");
 
   const { error } = await _supabase
     .from("Pokemon")
@@ -69,7 +66,7 @@ async function createRoute() {
 
   if (error) alert(error.message);
   else {
-    document.getElementById("newRouteName").value = "";
+    document.getElementById("routeName").value = "";
   }
 }
 
@@ -108,6 +105,12 @@ async function deleteRoute(id) {
 }
 
 // --- EVENT LISTENER ---
+
+document.getElementById("newRouteName").addEventListener("submit", function(e) {
+    createRoute();
+    e.preventDefault(); // WICHTIG: Verhindert das Neuladen der Seite
+});
+
 mainScope.addEventListener("click", function (e) {
   const wrapper = e.target.closest(".route-wrapper");
   // Globale Funktionen
@@ -136,16 +139,18 @@ mainScope.addEventListener("click", function (e) {
     loadRoutes(); // Neu laden, da keine Echtzeit-Updates für das Filtern existieren
     return;
   }
-  if (e.target.id === "addRouteBtn") {
-    createRoute();
-    return;
-  }
 
   // Routen-Logik
+    if(!wrapper) return; // Falls kein Wrapper gefunden wird, abbrechen (z.B. bei Klicks außerhalb einer Route)
+
   const routeId = wrapper.dataset.id;
-console.log("Klick auf Route mit ID:", routeId);
-    if (e.target.id === "deleteRouteBtn") {
-      console.log("Lösche Route mit ID:", routeId);
+
+  
+  if (e.target.classList.contains("star-btn")) {}
+
+
+
+  if (e.target.id === "deleteRouteBtn") {
     deleteRoute(routeId);
   }
 
