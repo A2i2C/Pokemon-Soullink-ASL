@@ -12,10 +12,10 @@
     <div class="container" id="main-scope">
         <h1>⚔️ SoulLink: Route Tracker ⚔️</h1>
 
-        <form id="newRouteName" style="margin-bottom: 30px">
-            <input type="text" id="routeName"  placeholder="Routen Name (z.B. Route 101)" />
+        <div style="margin-bottom: 30px">
+            <input type="text" id="newRouteName" placeholder="Routen Name (z.B. Route 101)" />
             <button class="btn-add" id="addRouteBtn">Neue Route hinzufügen</button>
-        </form>
+        </div>
 
         <div style="margin-bottom: 20px">
             <label><input type="checkbox" id="toggleDead" /> Tote Pokemon
@@ -45,7 +45,7 @@
 
         <template id="playerTemplate">
             <div class="player-slot">
-                <span class="star-btn">☆</span>
+                <span class="star-btn">⭐</span>
                 <span class="poke-name"></span><br />
                 <button class="btn-update">✍️</button>
             </div>
