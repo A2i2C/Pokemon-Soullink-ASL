@@ -35,6 +35,8 @@ async function loadRoutes() {
     playerList.forEach((player) => {
       const playerTemplate = document.getElementById("playerTemplate");
       const playerTemplateClone = playerTemplate.content.cloneNode(true);
+      const favs = row.favorite || [];
+      const starBtn = playerTemplateClone.querySelector(".star-btn");
 
       const playersContainer = routeTemplateClone.querySelector(".players-container");
 
@@ -42,6 +44,14 @@ async function loadRoutes() {
 
       const btnPokemonUpdate = playerTemplateClone.querySelector(".btn-update");
       btnPokemonUpdate.dataset.player = player;
+
+      starBtn.textContent = "☆";
+      starBtn.dataset.player = player;
+
+      if(favs.includes(player)) {
+        starBtn.classList.add("favorited");
+        starBtn.textContent = "⭐";
+      }
 
       playersContainer.appendChild(playerTemplateClone);
     });
@@ -95,6 +105,30 @@ async function toggleStatus(id, currentStatus) {
   if (error) alert(error.message);
 }
 
+async function toggleFavorite(id, player) {
+  //Aktuellen Favoriten-Status abrufen
+  const { data } = await _supabase
+    .from("Pokemon")
+    .select("favorite")
+    .eq("id", id)
+    .single();
+
+  let favorites = data.favorite || [];
+
+  if (favorites.includes(player)) {
+    favorites = favorites.filter((p) => p !== player); // Entfernen
+  } else {
+    favorites.push(player); // Hinzufügen
+  }
+
+  const { error } = await _supabase
+    .from("Pokemon")
+    .update({ favorite: favorites })
+    .eq("id", id);
+
+  if (error) alert(error.message);
+}
+
 async function deleteRoute(id) {
   if (!confirm("Willst du diese Route wirklich löschen?")) return;
 
@@ -107,8 +141,8 @@ async function deleteRoute(id) {
 // --- EVENT LISTENER ---
 mainScope.addEventListener("click", function (e) {
   const wrapper = e.target.closest(".route-wrapper");
-  // Globale Funktionen
 
+  // Globale Funktionen
   if (e.target.id === "toggleDead") {
     showDead = e.target.checked;
     loadRoutes(); // Neu laden, da keine Echtzeit-Updates für das Filtern existieren
@@ -121,15 +155,17 @@ mainScope.addEventListener("click", function (e) {
 
   // Routen-Logik
   const routeId = wrapper.dataset.id;
-console.log("Klick auf Route mit ID:", routeId);
-    if (e.target.id === "deleteRouteBtn") {
-      console.log("Lösche Route mit ID:", routeId);
+  const player = e.target.dataset.player;
+
+  if (e.target.id === "deleteRouteBtn") {
     deleteRoute(routeId);
   }
 
   if (e.target.classList.contains("btn-update")) {
-    const player = e.target.dataset.player;
     updatePoke(routeId, player);
+  }
+  if (e.target.classList.contains("star-btn")) {
+    toggleFavorite(routeId, player);
   }
 
   if (e.target.classList.contains("btn-death")) {
@@ -138,7 +174,11 @@ console.log("Klick auf Route mit ID:", routeId);
       : "alive"; // Wenn der Button "revive" anzeigt, ist die Route aktuell "dead" deswegen setzen wir den Status auf "alive" und umgekehrt
     toggleStatus(routeId, currentStatus);
   }
+
+
 });
+
+
 
 // --- ECHTZEIT-UPDATE ---
 const channel = _supabase

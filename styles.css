@@ -78,3 +78,19 @@ button {
   color: #aaa;
   margin-bottom: 10px;
 }
+
+.poke-name.favorited {
+  color: yellow;
+  font-weight: bold;
+}
+
+.star-btn {
+  cursor: pointer;
+  margin-left: 5px;
+  user-select: none;
+  color: #888;
+}
+
+.star-btn.favorited {
+  color: gold;
+}
