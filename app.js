@@ -5,11 +5,12 @@ const _supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 const mainScope = document.getElementById("main-scope"); // Für den Listener
 const trackerList = document.getElementById("trackerList"); // Für loadRoutes
 let showDead = false; // Steuert die Sichtbarkeit von "toten" Routen
+let routeFavorites = {}; // Favoriten-Cache pro Route-ID
 
 // --- FUNKTIONEN ---
 
 async function loadRoutes() {
-  trackerList.innerHTML = ""; // Leert die aktuelle Liste, bevor neue Daten geladen werden
+  trackerList.innerHTML = ""; // Leert die aktuelle Liste, bevor neue Daten geladen werden, sonst würden sich die Einträge untereinander hinzufügen
 
   const { data, error } = await _supabase
     .from("Pokemon")
@@ -31,24 +32,23 @@ async function loadRoutes() {
     route.dataset.id = row.id;
     routeTemplateClone.querySelector(".route-name").textContent = row.route;
     if (row.status === "dead") route.classList.add("dead");
+    routeFavorites[row.id] = Array.isArray(row.favorite) ? row.favorite : [];
 
     playerList.forEach((player) => {
       const playerTemplate = document.getElementById("playerTemplate");
       const playerTemplateClone = playerTemplate.content.cloneNode(true);
-      const favs = row.favorite || [];
       const starBtn = playerTemplateClone.querySelector(".star-btn");
 
       const playersContainer = routeTemplateClone.querySelector(".players-container");
 
       playerTemplateClone.querySelector(".poke-name").textContent = row[player] || "---";
-
       const btnPokemonUpdate = playerTemplateClone.querySelector(".btn-update");
       btnPokemonUpdate.dataset.player = player;
 
       starBtn.textContent = "☆";
       starBtn.dataset.player = player;
 
-      if(favs.includes(player)) {
+      if (routeFavorites[row.id].includes(player)) {
         starBtn.classList.add("favorited");
         starBtn.textContent = "⭐";
       }
@@ -65,18 +65,18 @@ async function loadRoutes() {
 }
 
 async function createRoute() {
-  const name = document.getElementById("newRouteName").value;
+  const name = document.getElementById("routeName").value;
   if (!name) return alert("Namen eingeben!");
 
   const { error } = await _supabase
     .from("Pokemon")
     .insert([
-      { route: name, sven: "---", aziz: "---", luigi: "---", status: "alive" },
+      { route: name, sven: "---", aziz: "---", luigi: "---", status: "alive", favorite: [] },
     ]);
 
   if (error) alert(error.message);
   else {
-    document.getElementById("newRouteName").value = "";
+    document.getElementById("routeName").value = "";
   }
 }
 
@@ -106,19 +106,12 @@ async function toggleStatus(id, currentStatus) {
 }
 
 async function toggleFavorite(id, player) {
-  //Aktuellen Favoriten-Status abrufen
-  const { data } = await _supabase
-    .from("Pokemon")
-    .select("favorite")
-    .eq("id", id)
-    .single();
-
-  let favorites = data.favorite || [];
+  let favorites = [...(routeFavorites[id] || [])];
 
   if (favorites.includes(player)) {
-    favorites = favorites.filter((p) => p !== player); // Entfernen
+    favorites = favorites.filter((p) => p !== player); 
   } else {
-    favorites.push(player); // Hinzufügen
+    favorites.push(player); 
   }
 
   const { error } = await _supabase
@@ -127,6 +120,7 @@ async function toggleFavorite(id, player) {
     .eq("id", id);
 
   if (error) alert(error.message);
+  else routeFavorites[id] = favorites;
 }
 
 async function deleteRoute(id) {
@@ -139,6 +133,12 @@ async function deleteRoute(id) {
 }
 
 // --- EVENT LISTENER ---
+
+document.getElementById("newRouteName").addEventListener("submit", function(e) {
+    createRoute();
+    e.preventDefault(); // WICHTIG: Verhindert das Neuladen der Seite
+});
+
 mainScope.addEventListener("click", function (e) {
   const wrapper = e.target.closest(".route-wrapper");
 
@@ -146,10 +146,6 @@ mainScope.addEventListener("click", function (e) {
   if (e.target.id === "toggleDead") {
     showDead = e.target.checked;
     loadRoutes(); // Neu laden, da keine Echtzeit-Updates für das Filtern existieren
-    return;
-  }
-  if (e.target.id === "addRouteBtn") {
-    createRoute();
     return;
   }
 
@@ -178,8 +174,6 @@ mainScope.addEventListener("click", function (e) {
 
 });
 
-
-
 // --- ECHTZEIT-UPDATE ---
 const channel = _supabase
   .channel("public:Pokemon") // Name des Kanals
@@ -191,27 +185,11 @@ const channel = _supabase
       table: "Pokemon",
     },
     (payload) => {
-      console.log("Echtzeit-Update empfangen!", payload);
-      loadRoutes(); // Ruft deine Funktion von oben auf, um die Liste neu zu zeichnen
+      routeFavorites[payload.new.id] = payload.new.favorite || [];
+      loadRoutes();
     },
   )
   .subscribe();
-/*
-  async function nuclearOption() {
-    if (!confirm("Bist du sicher? Alle Routen werden gelöscht und die ID-Zählung zurückgesetzt!")) return;
-    const { error } = await _supabase.from("Pokemon").delete().neq('id', 0); // Löscht alle Routen
-    if (error) {
-        console.error("Fehler bei der Löschung", error);
-        alert("Fehler: " + error.message);
-    } else {
-        console.log("Tabelle erfolgreich geleert.");
-    }
-  }
-
-  document.getElementById("nuclearOption")
-    .addEventListener("click", nuclearOption);
-*/
-
 
 // Start
 loadRoutes();
