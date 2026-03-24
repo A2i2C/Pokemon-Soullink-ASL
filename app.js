@@ -6,11 +6,13 @@ const mainScope = document.getElementById("main-scope"); // Für den Listener
 const trackerList = document.getElementById("trackerList"); // Für loadRoutes
 let showDead = false; // Steuert die Sichtbarkeit von "toten" Routen
 let routeFavorites = {}; // Favoriten-Cache pro Route-ID
+let pokeRoutesPerPlayer = {}; // Alle Pokemon der Routen in einem Json-Objekt vom Typ { player: [pokemon] }
 
 // --- FUNKTIONEN ---
 
 async function loadRoutes() {
   trackerList.innerHTML = ""; // Leert die aktuelle Liste, bevor neue Daten geladen werden, sonst würden sich die Einträge untereinander hinzufügen
+
 
   const { data, error } = await _supabase
     .from("Pokemon")
@@ -33,6 +35,7 @@ async function loadRoutes() {
     routeTemplateClone.querySelector(".route-name").textContent = row.route;
     if (row.status === "dead") route.classList.add("dead");
     routeFavorites[row.id] = Array.isArray(row.favorite) ? row.favorite : [];
+    pokeRoutesPerPlayer[row.id] = { aziz: row.aziz, sven: row.sven, luigi: row.luigi };
 
     playerList.forEach((player) => {
       const playerTemplate = document.getElementById("playerTemplate");
@@ -81,8 +84,18 @@ async function createRoute() {
 }
 
 async function updatePoke(id, player) {
-  const newPoke = prompt(`Welches Pokémon hat ${player} gefangen?`);
+  let newPoke = "";
+
+if(pokeRoutesPerPlayer[id]) {
+  newPoke = prompt(`Neuer Pokémon-Name für ${player} :`, pokeRoutesPerPlayer[id][player]);
+}
+else {
+  newPoke = prompt(`Neuer Pokémon-Name für ${player}:`);
+}
+
   if (newPoke === null) return;
+
+
 
   const updateData = {};
   updateData[player] = newPoke;
@@ -186,6 +199,7 @@ const channel = _supabase
     },
     (payload) => {
       routeFavorites[payload.new.id] = payload.new.favorite || [];
+      pokeRoutesPerPlayer[payload.new.id] = { aziz: payload.new.aziz, sven: payload.new.sven, luigi: payload.new.luigi };
       loadRoutes();
     },
   )
