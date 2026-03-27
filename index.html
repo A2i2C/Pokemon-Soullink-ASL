@@ -11,20 +11,19 @@
 <body>
     <div class="container" id="main-scope">
         <h1>⚔️ SoulLink: Route Tracker ⚔️</h1>
+        <button id="openModalBtn">Pokémon Level-Übersicht anzeigen</button>
 
-        <form id="newRouteName" style="margin-bottom: 30px">
+        <form id="newRouteName" style="margin-bottom: 20px; margin-top: 30px;">
             <input type="text" id="routeName" placeholder="Routen Name (z.B. Route 101)" />
             <button class="btn-add" id="addRouteBtn">Neue Route hinzufügen</button>
         </form>
 
         <div style="margin-bottom: 20px">
-            <span>
-                <label class="pokemon-switch">
-                    <input type="checkbox" id="toggleDead">
-                    <span class="slider"></span>
-                </label>
-                <button id="openModalBtn">Pokémon Level-Übersicht anzeigen</button>
-            </span>
+            <label class="pokemon-switch">
+                <input type="checkbox" id="toggleDead">
+                <span class="slider"></span>
+            </label>
+
         </div>
 
         <div class="route-grid header-row" style="background: transparent; border: none">
