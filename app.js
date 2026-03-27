@@ -145,25 +145,44 @@ async function deleteRoute(id) {
     .eq("id", id);
 }
 
+
 // --- EVENT LISTENER ---
 
 document.getElementById("newRouteName").addEventListener("submit", function(e) {
     createRoute();
     e.preventDefault(); // WICHTIG: Verhindert das Neuladen der Seite
 });
+  const modal = document.getElementById("gymLevelModal");
 
 mainScope.addEventListener("click", function (e) {
-  const wrapper = e.target.closest(".route-wrapper");
+  //Open Modal side close Modal
+  if (e.target === modal) {
+    modal.classList.remove("show");
+  }
 
   // Globale Funktionen
   if (e.target.id === "toggleDead") {
     showDead = e.target.checked;
     loadRoutes(); // Neu laden, da keine Echtzeit-Updates für das Filtern existieren
-    return;
+  }
+
+  if (e.target.id === "openModalBtn") {
+    modal.classList.add("show");
+  }
+
+  if (e.target.id === "closeModalBtn") {
+    modal.classList.remove("show");
   }
 
   // Routen-Logik
-  const routeId = wrapper.dataset.id;
+  const wrapper = e.target.closest(".route-wrapper");
+  let routeId;
+  try {
+  routeId = wrapper.dataset.id;
+  } catch (error) {
+    console.log("Keine Route angeklickt");
+    return;
+  }
   const player = e.target.dataset.player;
 
   if (e.target.id === "deleteRouteBtn") {

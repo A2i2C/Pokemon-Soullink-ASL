@@ -12,14 +12,15 @@
     <div class="container" id="main-scope">
         <h1>⚔️ SoulLink: Route Tracker ⚔️</h1>
 
-        <form  id="newRouteName" style="margin-bottom: 30px">
+        <form id="newRouteName" style="margin-bottom: 30px">
             <input type="text" id="routeName" placeholder="Routen Name (z.B. Route 101)" />
             <button class="btn-add" id="addRouteBtn">Neue Route hinzufügen</button>
         </form>
 
         <div style="margin-bottom: 20px">
-            <label><input type="checkbox" id="toggleDead" /> Tote Pokemon
-                anzeigen</label>
+            <span> <label><input type="checkbox" id="toggleDead" /> Tote Pokemon anzeigen</label>
+                <button id="openModalBtn">Pokémon Level-Übersicht anzeigen</button>
+            </span>
         </div>
 
         <div class="route-grid header-row" style="background: transparent; border: none">
@@ -39,7 +40,7 @@
                         <button class="btn-death">MARK DEAD 💀</button>
                     </div>
                 </div>
-                <div id = "deleteRouteBtn" class="deleteRouteBtn">🗑️</div>
+                <div id="deleteRouteBtn" class="deleteRouteBtn">🗑️</div>
             </div>
         </template>
 
@@ -55,8 +56,30 @@
             Lade Routen...
         </div>
 
+        <div id="gymLevelModal" class="modal-hidden">
+            <div class="modal-content">
+                <span id="closeModalBtn" class="close-modal-btn">&times;</span>
+                <h2>Gym & League Levels</h2>
+                <ul>
+                    <li>Gym 1: Lv 14</li>
+                    <li>Gym 2: Lv 16</li>
+                    <li>Gym 3: Lv 21</li>
+                    <li>Gym 4: Lv 28</li>
+                    <li>Gym 5: Lv 30</li>
+                    <li>Gym 6: Lv 35</li>
+                    <li>Gym 7: Lv 45</li>
+                    <li>Gym 8: Lv 46</li>
+                    <hr>
+                    <li>Elite Four 1: Lv 52</li>
+                    <li>Elite Four 2: Lv 53</li>
+                    <li>Elite Four 3: Lv 54</li>
+                    <li>Elite Four 4: Lv 55</li>
+                    <li><strong>Champion: Lv 59</strong></li>
+                </ul>
+            </div>
+        </div>
+
     </div>
-    <!--<button id="nuclearOption">Nuclear Option</button>-->
 
     <script src="app.js"></script>
 </body>
