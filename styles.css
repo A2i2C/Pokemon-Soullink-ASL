@@ -134,11 +134,10 @@ background-color: #d3d2d2; /* Dunkles Grau passend zum Screenshot */
   cursor: pointer;
 }
 
-/* Grundgerüst des Schalters */
 .pokemon-switch {
   position: relative;
   display: inline-block;
-  width: 110px;
+  width: 180px;
   height: 40px;
 }
 
@@ -148,7 +147,6 @@ background-color: #d3d2d2; /* Dunkles Grau passend zum Screenshot */
   height: 0;
 }
 
-/* Der Slider-Hintergrund */
 .slider {
   display: flex;
   position: absolute;
@@ -159,15 +157,14 @@ background-color: #d3d2d2; /* Dunkles Grau passend zum Screenshot */
   align-items: center;
 }
 
-/* Der Text im Slider, startet im "After" Zustand */
 .slider::after {
-  content: "Alive 😇";
+  content: "Showing Alive 😇";
   color: white;
   font-weight: bold;
   font-size: 14px;
   position: absolute;
-  right: 15px; /* Text steht rechts, wenn der Button links ist */
-  transition: .4s;
+  right: 15px;
+  transition: .7s;
 }
 
 /* Der weiße Kreis (Knopf) */
@@ -178,7 +175,7 @@ background-color: #d3d2d2; /* Dunkles Grau passend zum Screenshot */
   width: 32px;
   left: 4px;
   background-color: white;
-  transition: .4s;
+  transition: .8s;
   border-radius: 50%;
 }
 
@@ -187,11 +184,12 @@ input:checked + .slider {
 }
 
 input:checked + .slider::before {
-  transform: translateX(70px);
+  transition: .8s;
+  transform: translateX(140px);
 }
 
 input:checked + .slider::after {
-  content: "Dead 💀";
+  content: "Showing Dead 💀";
   right: auto;
   left: 15px; 
 }
