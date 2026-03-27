@@ -18,7 +18,11 @@
         </form>
 
         <div style="margin-bottom: 20px">
-            <span> <label><input type="checkbox" id="toggleDead" /> Tote Pokemon anzeigen</label>
+            <span>
+                <label class="pokemon-switch">
+                    <input type="checkbox" id="toggleDead">
+                    <span class="slider"></span>
+                </label>
                 <button id="openModalBtn">Pokémon Level-Übersicht anzeigen</button>
             </span>
         </div>
@@ -60,7 +64,7 @@
             <div class="modal-content">
                 <span id="closeModalBtn" class="close-modal-btn">&times;</span>
                 <h2>Gym & League Levels</h2>
-                <ul>
+                <ul style="list-style: none; padding: 0;">
                     <li>Gym 1: Lv 14</li>
                     <li>Gym 2: Lv 16</li>
                     <li>Gym 3: Lv 21</li>
