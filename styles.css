@@ -96,7 +96,7 @@ button {
 }
 
 /* Modal-Stile */
-.modal-hidden {
+.modal {
   display: none; 
   position: fixed;
   z-index: 1000;
@@ -109,7 +109,7 @@ button {
   align-items: center;
 }
 
-.modal-hidden.show {
+.modal.show {
   display: flex;
 }
 

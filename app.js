@@ -176,19 +176,12 @@ mainScope.addEventListener("click", function (e) {
 
   // Routen-Logik
   const wrapper = e.target.closest(".route-wrapper");
-  let routeId;
-  try {
-  routeId = wrapper.dataset.id;
-  } catch (error) {
-    console.log("Keine Route angeklickt");
-    return;
-  }
-  const player = e.target.dataset.player;
+  const routeId = wrapper?.dataset?.id;
+  const player = e.target?.dataset?.player;
 
   if (e.target.id === "deleteRouteBtn") {
     deleteRoute(routeId);
   }
-
   if (e.target.classList.contains("btn-update")) {
     updatePoke(routeId, player);
   }
