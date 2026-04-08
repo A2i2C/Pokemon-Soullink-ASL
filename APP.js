@@ -7,22 +7,6 @@ const trackerList = document.getElementById("trackerList"); // Für loadRoutes
 let showDead = false; // Steuert die Sichtbarkeit von "toten" Routen
 let routeFavorites = {}; // Favoriten-Cache pro Route-ID
 let pokeRoutesPerPlayer = {}; // Alle Pokemon der Routen in einem Json-Objekt vom Typ { player: [pokemon] }
-// API-REQ
-const pokemon = fetch("https://pokeapi.co/api/v2/pokemon?limit=2") //bekomme immer eine Promise Pending bis in eine Funktion
-.then(response => response.json())
-.then(async (pokeList) => {
-    await Promise.all(pokeList.results.map(async (soloPokeData) => {
-      return fetch(soloPokeData.url)
-      .then(res => res.json()) 
-      .then(details => {
-        return {id: details.id,
-                name: details.name,
-                sprites: details.sprites.front_default
-        }
-      }) 
-    }))
-.then (fertig => {localStorage.setItem("pokeData", JSON.stringify(fertig))})
-});
 
 // --- FUNKTIONEN ---
 
@@ -59,6 +43,12 @@ async function loadRoutes() {
       const starBtn = playerTemplateClone.querySelector(".star-btn");
 
       const playersContainer = routeTemplateClone.querySelector(".players-container");
+      const gespeicherteDaten = localStorage.getItem("json");
+      const pokedex = JSON.parse(gespeicherteDaten);
+      console.log(pokedex)
+      const treffer = pokedex.find(p => p.name === "ivysaur");
+      console.log(treffer)
+      playerTemplateClone.querySelector(".poke-image").src = treffer.sprites;
 
       playerTemplateClone.querySelector(".poke-name").textContent = row[player] || "---";
       const btnPokemonUpdate = playerTemplateClone.querySelector(".btn-update");
