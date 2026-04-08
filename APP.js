@@ -21,7 +21,7 @@ const pokemon = fetch("https://pokeapi.co/api/v2/pokemon?limit=2") //bekomme imm
         }
       }) 
     }))
-.then (fertig => {console.log(fertig)})
+.then (fertig => {localStorage.setItem("pokeData", JSON.stringify(fertig))})
 });
 
 // --- FUNKTIONEN ---
