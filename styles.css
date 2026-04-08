@@ -86,7 +86,6 @@ button {
 
 .star-btn {
   cursor: pointer;
-  margin-left: 5px;
   user-select: none;
   color: #888;
 }
@@ -192,4 +191,9 @@ input:checked + .slider::after {
   content: "Showing Dead 💀";
   right: auto;
   left: 15px; 
+}
+
+.poke-image {
+  width: 40px;
+  height: 40px;
 }
